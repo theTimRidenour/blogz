@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1><center>Add a Blog Entry</center></h1>
+    <form method="post" action="/newpost">
+        <label>
+            Title for your new blog:<br/>
+            <input type="text" name="title"
+              {% if b_title %}
+              value = "{{b_title}}"
+              {% endif %}
+             />
+            {% if error_title %}
+              <br />
+              <h5 style="color: red;"><em>You must enter a title.</em></h5>
+            {% endif %}
+        </label>
+        <br />
+        <br />
+        <label>
+          Your new blog:<br />
+          <textarea name="blog">{% if b_body %}{{b_body}}{% endif %}</textarea>
+          {% if error_body %}
+            <br />
+            <h5 style="color: red;"><em>Your blog must say something.</em></h5>
+          {% endif %}
+        </label>
+        <br />
+        <input type="submit" value="Add Entry" />
+    </form>
+
+{% endblock %}

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% if title|length > 22 %}
-    <h1>{{title}}</h1>
+  <div class="post unit">
+    <h1>{{post.title}}</h1>
+    <br />
+    <p id="post">{{post.date}} &nbsp &nbsp &nbsp</p>
     <br />
     <br />
-  {% endif %}
-    <h3><center>{{post.body}}</center></h3>
-
+    <h3 class="post_body no_height"><center>{{post.body}}</center></h3>
+  </div>
 {% endblock %}

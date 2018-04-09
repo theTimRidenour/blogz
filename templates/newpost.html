@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="post unit">
     <h1><center>Add a Blog Entry</center></h1>
+    <br />
+    <br />
     <form method="post" action="/newpost">
         <label>
-            Title for your new blog:<br/>
-            <input type="text" name="title"
+            Title<br/>
+            <input type="text" name="title" size="60" maxlength="120"
               {% if b_title %}
               value = "{{b_title}}"
               {% endif %}
@@ -18,8 +21,8 @@
         <br />
         <br />
         <label>
-          Your new blog:<br />
-          <textarea name="blog">{% if b_body %}{{b_body}}{% endif %}</textarea>
+          Your new blog<br />
+          <textarea name="blog" width="60%" maxlength="5000" cols="60" rows="10">{% if b_body %}{{b_body}}{% endif %}</textarea>
           {% if error_body %}
             <br />
             <h5 style="color: red;"><em>Your blog must say something.</em></h5>
@@ -28,5 +31,6 @@
         <br />
         <input type="submit" value="Add Entry" />
     </form>
+    </div>
 
 {% endblock %}

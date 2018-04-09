@@ -21,6 +21,99 @@
   text-shadow: -3px 0px #0000DE;
 }
 
+.post {
+  width: 310px;
+  display: inline-block;
+  height: 150px;
+  vertical-align: top;
+  padding: 0px;
+  border: 2px solid #555;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  margin: 10px auto;
+  background-color: #EEE;
+  box-shadow: -2px 4px .4em #888, 2px 4px .4em #888;
+}
+
+.unit {
+  width: 90%;
+  margin-left: 5%;
+  padding-top: 10px;
+  background-color: #FFF;
+  box-shadow: -2px 6px .6em #777, 2px 6px .6em #777, -2px -1px .6em #888, 2px -1px .6em #888;
+  height: auto;
+  padding-bottom: 25px;
+}
+
+.post:hover {
+  background-color: #FFF;
+  box-shadow: -2px 6px .6em #777, 2px 6px .6em #777, -2px -1px .6em #888, 2px -1px .6em #888;
+}
+
+.post_header {
+  height: 45px;
+  background-color: #0000CD;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.post a {
+  color: #DDD;
+  font-family: sans-serif;
+  text-decoration: none;
+  text-shadow: -1px 0px #8888FF;
+}
+
+.post a:hover .post_header {
+  background-color: #3333FF;
+  color: #FFF;
+  min-height: 45px;
+  height: auto;
+}
+
+.post_body {
+  height: 70px;
+  color: #333;
+  font-family: serif;
+  text-shadow: none;
+  padding: 0px 4px 0px 4px;
+}
+
+.post_datetime, #post {
+  height: 20px;
+  font-family: sans-serif;
+  font-size: 0.5em;
+  width: 100%;
+  color: #DDD;
+  background-color: #333;
+  text-align: right;
+  padding-top: 5px;
+  text-shadow: none;
+}
+
+#post {
+  padding-top: 3px;
+  height: 10px;
+}
+
+.post a:hover .post_datetime {
+  color: #FFF;
+}
+
+.center {
+  margin: auto;
+  width: 99%;
+  text-align: center;
+}
+
+.no_height {
+  height: auto;
+}
+
 h1 {
   font-size: 2.2em;
   text-align: center;
@@ -31,6 +124,8 @@ h1 {
 body {
   padding: 60px 0px 20px 0px;
   min-width: 640px;
+  align-items: center;
+  background-color: #CCC;
 }
 
 h3 {
@@ -60,4 +155,14 @@ nav a:hover {
   border: 2px solid #5F9EA0;
   color: #191970;
   border-radius: 5px;
+  padding: 4px 3px 5px 3px;
+}
+
+input, textarea {
+  margin: 3px;
+}
+
+strong {
+  text-decoration: underline;
+  color: #F00;
 }

@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -11,7 +12,8 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    body = db.Column(db.String(500))
+    body = db.Column(db.String(5000))
+    date = db.Column(db.DateTime, default=datetime.now())
 
     def __init__(self, title, body):
         self.title = title
@@ -24,19 +26,19 @@ def blog():
 
     if not (id):
 
-        posts = Blog.query.order_by("id desc").all()
+        posts = Blog.query.order_by("date desc").all()
 
-        return render_template('blog.html',title="Blog Post",posts=posts)
+        return render_template('blog.html',title="My Blog",posts=posts)
 
     post_id = int(id)
     post = Blog.query.filter_by(id=post_id).first()
 
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('post.html', title="Blog Post", post=post)
 
 @app.route('/newpost', methods=['GET'])
 def newpost():
 
-    return render_template('newpost.html', title="Add a Blog Entry")
+    return render_template('newpost.html', title="New Post")
 
 @app.route('/newpost', methods=['POST'])
 def add_post():
@@ -45,11 +47,11 @@ def add_post():
 
     if not (blog_title):
         if not (blog_body):
-            return render_template('newpost.html', title="Add a Blog Entry", error_title=True, error_body=True)
+            return render_template('newpost.html', title="New Post", error_title=True, error_body=True)
         else:
-            return render_template('newpost.html', title="Add a Blog Entry", error_title=True, b_body=blog_body)
+            return render_template('newpost.html', title="New Post", error_title=True, b_body=blog_body)
     if not (blog_body):
-        return render_template('newpost.html', title="Add a Blog Entry", error_body=True, b_title=blog_title)
+        return render_template('newpost.html', title="New Post", error_body=True, b_title=blog_title)
 
     new_post = Blog(blog_title, blog_body)
     db.session.add(new_post)

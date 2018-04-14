@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="post unit">
+    <h1><center>Sign Up</center></h1>
+    <br />
+    <br />
+    <form method="post" action="/login">
+        <label>
+            Username<br/>
+            <input type="text" name="username" size="60" maxlength="120"
+              {% if b_username %}
+              value = "{{b_username}}"
+              {% endif %}
+             />
+            {% if error_username %}
+              <br />
+              <h5 style="color: red;"><em>User not registered. Would you like to <a href="/signup">register</a>.</em></h5>
+            {% endif %}
+        </label>
+        <br />
+        <br />
+        <label>
+          Password<br />
+          <input type="password" name="password" size="60" maxlength="120" />
+          {% if error_password %}
+            <br />
+            <h5 style="color: red;"><em>The password you entered is incorrect</em></h5>
+          {% endif %}
+        </label>
+        <br />
+        <input type="submit" value="Add Entry" />
+    </form>
+    </div>
+
+{% endblock %}

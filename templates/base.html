@@ -16,6 +16,11 @@
       {{title}}
   </div>
   </div>
+  {% with messages = get_flashed_messages() %}
+  {% for message in messages %}
+    <h3>{{ message }}</h3>
+  {% endfor %}
+  {% endwith %}
 
     {% block content %}
     {% endblock %}

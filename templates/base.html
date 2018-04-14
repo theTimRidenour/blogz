@@ -9,8 +9,14 @@
 <body>
   <div class="header">
   <nav>
-    <a href="/blog">My Blog</a>
-    <a href="/newpost">Add a Blog Entry</a>
+    <a href="/blog">Blogz</a>
+    <a href="/newpost">Add a Post</a>
+    {% if session['username'] %}
+      <a href="/logout">Log Out</a> <div class="title small">{{ session['username'] }}</div>
+    {% else %}
+      <a href="/login">Login</a>
+      <a href="/signup">Sign Up</a>
+    {% endif %}
   </nav>
   <div class="title">
       {{title}}

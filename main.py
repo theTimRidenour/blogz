@@ -131,7 +131,7 @@ def login():
             flash("The password you entered is incorrect.")
             return render_template("login.html", b_username=username)
 
-        session['username'] = username
+        session['username'] = user.username
         flash("Logged in")
         return redirect("/newpost")
 

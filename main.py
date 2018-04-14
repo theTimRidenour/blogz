@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash
+from flask import Flask, request, redirect, render_template, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://blogz:password@localhost:8889/blogz"
 app.config['SQLALCHEMY_ECHO'] = True
+app.secret_key = "dfkj4230fjFLJFRjle9"
 db = SQLAlchemy(app)
 
 class Blog(db.Model):
@@ -108,6 +109,7 @@ def signup():
         new_user = User(username, password)
         db.session.add(new_user)
         db.session.commit()
+        session['username'] = username
         flash(username + " is signed up")
         return redirect("/newpost")
 
@@ -139,7 +141,7 @@ def login():
 def index():
     return redirect("/blog")
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout')
 def logout():
     del session['username']
     return redirect("/blog")

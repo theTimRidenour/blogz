@@ -18,7 +18,7 @@
 
 .title {
   position: absolute;
-  width: 50%;
+  width: 35%;
   height: 30px;
   left: 0px;
   top: 5px;
@@ -32,14 +32,15 @@
   position: relative;
   width: 65%;
   height: auto;
-  left: 25%;
-  top: 10px;
+  left: 17%;
+  top: 7px;
   font-size: 1em;
   text-align: inherit;
   border: 2px solid #000080;
-  border-radius: 20px;
+  border-radius: 100%;
   background-color: #000080;
-  padding: 0px 4px 4px 4px;
+  padding: 0px 2px 8px 2px;
+  color: #FF0;
 }
 
 .post {
@@ -143,7 +144,7 @@ h1 {
 }
 
 body {
-  padding: 60px 0px 20px 0px;
+  padding: 65px 0px 20px 0px;
   min-width: 640px;
   align-items: center;
   background-color: #CCC;
@@ -155,10 +156,10 @@ h3 {
 
 nav {
   position: absolute;
-  width: 50%;
+  width: 65%;
   height: 30px;
   right: 0px;
-  padding-top: 5px;
+  padding-top: 1px;
   text-align: center;
   color: #EEE;
   text-decoration: none;

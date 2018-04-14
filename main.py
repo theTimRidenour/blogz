@@ -36,7 +36,7 @@ class User(db.Model):
 @app.before_request
 def require_login():
     allowed_routes = ["index", "login", "signup", "blog"]
-    if request.endpoint not in allowed_routes and 'username' not in session:
+    if request.endpoint not in allowed_routes and 'username' not in session and '/static/' not in request.path:
         return redirect("/login")
 
 @app.route('/blog', methods=['POST', 'GET'])
@@ -46,15 +46,18 @@ def blog():
 
     if not (id):
 
-        posts = Blog.query.order_by("date desc").all()
+        posts = Blog.query.order_by("id desc").all()
+        users = User.query.order_by("id").all()
         blog_range = 100
 
-        return render_template('blog.html',title="My Blog",posts=posts)
+        return render_template('blog.html', title="My Blog", posts=posts, users=users)
 
     post_id = int(id)
     post = Blog.query.filter_by(id=post_id).first()
+    owner_id = post.owner_id
+    user = User.query.filter_by(id=owner_id).first()
 
-    return render_template('post.html', title="Blog Post", post=post)
+    return render_template('post.html', title="Blog Post", post=post, user=user)
 
 @app.route('/newpost', methods=['GET'])
 def newpost():
@@ -74,7 +77,9 @@ def add_post():
     if not (blog_body):
         return render_template('newpost.html', title="New Post", error_body=True, b_title=blog_title)
 
-    new_post = Blog(blog_title, blog_body)
+    owner = User.query.filter_by(username=session['username']).first()
+
+    new_post = Blog(blog_title, blog_body, owner)
     db.session.add(new_post)
     db.session.commit()
 

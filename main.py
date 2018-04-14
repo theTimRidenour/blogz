@@ -27,6 +27,7 @@ def blog():
     if not (id):
 
         posts = Blog.query.order_by("date desc").all()
+        blog_range = 100
 
         return render_template('blog.html',title="My Blog",posts=posts)
 

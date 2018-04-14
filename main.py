@@ -78,7 +78,38 @@ def add_post():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
 
-    
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        verify = request.form['verify']
+
+        if User.query.filter_by(username=username).first():
+            flash("User already exist.")
+            return redirect("/login")
+
+        if not username:
+            flash("You must enter a username.")
+            return render_template("signup.html")
+        elif len(username) < 3:
+            flash("Username must be 3 or more characters.")
+            return render_template("signup.html", b_username=username)
+
+        if not password:
+            flash("You must enter a password.")
+            return render_template("signup.html", b_username=username)
+        elif len(password) < 3:
+            flash("Password must be 3 or more characters.")
+            return render_template("signup.html", b_username=username)
+
+        if password != verify:
+            flash("Your passwords do not match.")
+            return render_template("signup.html", b_username=username)
+
+        new_user = User(username, password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash(username + " is signed up")
+        return redirect("/newpost")
 
     return render_template("signup.html")
 
@@ -90,11 +121,13 @@ def login():
         password = request.form['password']
 
         if not User.query.filter_by(username = username).first():
-            return render_template("login.html", error_username=True)
+            flash("That user does not exist.")
+            return redirect("/signup")
 
         user = User.query.filter_by(username = username).first()
         if not password == user.password:
-            return render_template("login.html", error_password=True)
+            flash("The password you entered is incorrect.")
+            return render_template("login.html", b_username=username)
 
         session['username'] = username
         flash("Logged in")

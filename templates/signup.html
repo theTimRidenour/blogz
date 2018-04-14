@@ -13,31 +13,19 @@
               value = "{{b_username}}"
               {% endif %}
              />
-            {% if error_username %}
-              <br />
-              <h5 style="color: red;"><em>You must enter a username</em></h5>
-            {% endif %}
         </label>
         <br />
         <br />
         <label>
           Password<br />
           <input type="password" name="password" size="60" maxlength="120" />
-          {% if error_password %}
-            <br />
-            <h5 style="color: red;"><em>You must enter a password</em></h5>
-          {% endif %}
-        </label>
+          </label>
         <br />
         <br />
         <label>
           Verify<br />
           <input type="password" name="verify" size="60" maxlength="120" />
-          {% if error_verify %}
-            <br />
-            <h5 style="color: red;"><em>Your passwords do not match</em></h5>
-          {% endif %}
-        <br />
+          <br />
         <input type="submit" value="Sign Up" />
     </form>
     </div>

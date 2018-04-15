@@ -29,4 +29,19 @@
   </div>
     {% endif %}
 
+  {% if prev_url or next_url %}
+  <div class="footer">
+    <div class="prev">
+      {% if prev_url %}
+        <a href="{{ prev_url }}" class="title prev">&lt; - Previous</a>
+      {% endif %}
+    </div>
+    <div class="next">
+      {% if next_url %}
+        <a href="{{ next_url }}" class="title next">Next - &gt;</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
 {% endblock %}

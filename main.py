@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash, session
+from flask import Flask, request, redirect, render_template, flash, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -48,9 +48,14 @@ def blog():
     if not (id or user):
 
         page = request.args.get("page", 1, type=int)
+        posts = Blog.query.order_by("id desc").paginate(page, 5, False)
         users = User.query.order_by("id").all()
+        next_url = url_for('blog', page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('blog', page=posts.prev_num) \
+            if posts.has_prev else None
 
-        return render_template('blog.html', title="Blogz", posts=posts.items, users=users)
+        return render_template('blog.html', title="Blogz", posts=posts.items, users=users, next_url=next_url, prev_url=prev_url)
 
     if not user:
         post_id = int(id)

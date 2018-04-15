@@ -9,6 +9,13 @@
   min-width: 640px;
 }
 
+.border {
+  border: 15px outset #00D;
+  width: 580px;
+  padding: 0px;
+  margin: auto;
+}
+
 .error {
   color: red;
   font-size: 1.5em;
@@ -46,7 +53,7 @@
 .post {
   width: 98%;
   display: inline-block;
-  height: 150px;
+  height: 100px;
   vertical-align: top;
   padding: 0px;
   border: 2px solid #555;
@@ -68,13 +75,33 @@
   padding-bottom: 25px;
 }
 
+.user {
+  height: 35px;
+  background-color: #00F;
+  padding-top: 5px;
+  border-radius: 0px;
+  margin: 0px auto;
+  border: 0px solid #232323;
+  box-shadow: none;
+  width: 100%;
+}
+
+.post:hover .user {
+  background-color: #0000CD;
+}
+
 .post:hover {
   background-color: #FFF;
   box-shadow: -2px 6px .6em #777, 2px 6px .6em #777, -2px -1px .6em #888, 2px -1px .6em #888;
 }
 
+.border .post:hover {
+  box-shadow: none;
+  background-color: #FF0;
+}
+
 .post_header {
-  height: 45px;
+  height: 25px;
   background-color: #0000CD;
   width: 100%;
   padding-top: 8px;
@@ -93,12 +120,12 @@
 .post a:hover .post_header {
   background-color: #3333FF;
   color: #FFF;
-  min-height: 45px;
+  min-height: 25px;
   height: auto;
 }
 
 .post_body {
-  height: 70px;
+  height: 40px;
   color: #333;
   font-family: serif;
   text-shadow: none;

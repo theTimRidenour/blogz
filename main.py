@@ -43,21 +43,28 @@ def require_login():
 def blog():
 
     id = request.args.get('id')
+    user = request.args.get('user')
 
-    if not (id):
+    if not (id or user):
 
-        posts = Blog.query.order_by("id desc").all()
+        page = request.args.get("page", 1, type=int)
         users = User.query.order_by("id").all()
-        blog_range = 100
 
-        return render_template('blog.html', title="My Blog", posts=posts, users=users)
+        return render_template('blog.html', title="Blogz", posts=posts.items, users=users)
 
-    post_id = int(id)
-    post = Blog.query.filter_by(id=post_id).first()
-    owner_id = post.owner_id
-    user = User.query.filter_by(id=owner_id).first()
+    if not user:
+        post_id = int(id)
+        post = Blog.query.filter_by(id=post_id).first()
+        owner_id = post.owner_id
+        user = User.query.filter_by(id=owner_id).first()
 
-    return render_template('post.html', title="Blog Post", post=post, user=user)
+        return render_template('post.html', title="Blog Post", post=post, user=user)
+
+    user_id = int(user)
+    posts = Blog.query.filter_by(owner_id=user_id).order_by("id desc").all()
+    username = User.query.filter_by(id=user_id).first()
+
+    return render_template('blog.html', title=username.username, posts=posts, user_post=True)
 
 @app.route('/newpost', methods=['GET'])
 def newpost():
@@ -150,7 +157,11 @@ def login():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+
+    users = User.query.order_by("id").all()
+    blog_range = 100
+
+    return render_template('index.html', title="Users", users=users)
 
 @app.route('/logout')
 def logout():

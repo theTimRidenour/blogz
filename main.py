@@ -2,6 +2,8 @@ from flask import Flask, request, redirect, render_template, flash, session, url
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+from hashutils import make_pw_hash, check_pw_hash
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://blogz:password@localhost:8889/blogz"
@@ -31,7 +33,7 @@ class User(db.Model):
 
     def __init__(self, username, password):
         self.username = username
-        self.password = password
+        self.password = make_pw_hash(password)
 
 @app.before_request
 def require_login():
@@ -150,7 +152,7 @@ def login():
             return redirect("/signup")
 
         user = User.query.filter_by(username = username).first()
-        if not password == user.password:
+        if not check_pw_hash(password, user.password):
             flash("The password you entered is incorrect.")
             return render_template("login.html", b_username=username)
 
